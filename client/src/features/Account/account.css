@@ -1,0 +1,95 @@
+
+.form-login {
+    width: 30%;
+    margin: auto;
+}
+
+input#username {
+    line-height: 0.5;
+}
+
+input {
+    font-size: 14px !important;
+}
+
+.icon-login {
+    width: 40px;
+    height: 40px;
+    margin-top: 25px;
+    cursor: pointer;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+}
+
+.icon-login-text {
+    font-size: 25px;
+    padding-left: 5px;
+    font-weight: 700;
+    color: #FFFFFF;
+    text-shadow: 4px 0 0 #000000, 1px 0 0 #000000, 0 0px 0 #000000, 0 -1px 0 #000000, 0px 1px #000000, 4px 1px 0 #000000, 4px -1px 0 #000000, 0px -1px 0 #000000;
+}
+
+img {
+    width: 100%;
+    height: 100%;
+}
+
+.form-login h3 {
+    font-size: 40px;
+    text-align: center;
+    padding-bottom: 40px;
+    margin-top: 30px;
+    font-weight: 700;
+}
+
+.title {
+    color: rgba(55, 53, 47, 0.6);
+    font-size: 14px;
+}
+
+.icon-btn-login {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.icon-btn-login img {
+    margin-top: 2px;
+    margin-right: 5px;
+    width: 14px;
+    height: 14px;
+}
+
+.btn-login {
+    width: 100%;
+    color: #FFFFFF;
+    font-weight: 600;
+    background: rgb(225, 98, 89);
+    border: 1px solid rgb(190, 86, 67);
+}
+
+.btn-login:hover {
+    background: rgb(196, 77, 68);
+    border: 1px solid rgb(190, 86, 67);
+}
+
+.text-forgot {
+    text-align: center;
+    cursor: pointer;
+    font-size: 16px;
+    margin: auto;
+    display: block;
+    margin: 15px 0;
+    color: rgba(55, 53, 47, 0.6);
+    text-decoration: none;
+}
+
+@media screen and (max-width: 992px) {
+    .form-login {
+        width: 70%;
+    }
+    .text-forgot {
+        font-size: 15px;
+    }
+}
