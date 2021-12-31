@@ -1,10 +1,13 @@
 import React, {useState} from 'react';
 import './account.css';
 import { Form, FormGroup, Label, Input, Button } from 'reactstrap';
+import { ToastContainer } from 'react-toastify';
+import userApi from '../../api/userApi';
 
 function Account() {
 
     const [formData, setFormData] = useState({ username: '', password: '' });
+    const { username, password } = formData;
 
     const handleChange = event => {
         const name = event.target.name;
@@ -13,11 +16,18 @@ function Account() {
 
     const handleSubmit = event => {
         event.preventDefault();
+        console.log(process.env.REACT_APP_API_URL);
+
+        if(username && password) {
+            userApi.post({username, password})
+                .then(res => console.log(res))
+                .catch(err => console.log(err));
+        }
     };
 
-    const { username, password } = formData;
     return (
         <div className='container'>
+            <ToastContainer/>
             <div className='row'>
                 <div className='col'>
                     <a href='/' className='icon-login'>
