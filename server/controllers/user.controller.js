@@ -5,7 +5,6 @@ const { validationResult } = require('express-validator');
 module.exports.loginController = (req, res) => {
     const { username, password } = req.body;
 
-    console.log({ username, password });
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         const firstError = errors.array().map(error => error.msg)[0];
@@ -14,9 +13,8 @@ module.exports.loginController = (req, res) => {
         });
     } else {
         User.findOne({ username }).exec((err, user) => {
-            console.log(user);
             if (err || !user) {
-                return res.status(400).json({
+                return res.status(200).json({
                     errors: 'User does not exits. Please retype'
                 });
             } else {
@@ -31,4 +29,10 @@ module.exports.loginController = (req, res) => {
             }
         });
     }
+};
+
+module.exports.getAll = (req, res) => {
+    User.find({}).exec((err, user) => {
+        return res.json(user);
+    });
 };

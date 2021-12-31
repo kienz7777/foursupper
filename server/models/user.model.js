@@ -16,6 +16,9 @@ const userSchema = new mongoose.Schema(
         permission: {
             type: String,
             required: true
+        },
+        avatar: {
+            type: String
         }
     }
 );
