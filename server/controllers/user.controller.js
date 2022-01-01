@@ -14,7 +14,7 @@ module.exports.loginController = (req, res) => {
     } else {
         User.findOne({ username }).exec((err, user) => {
             if (err || !user) {
-                return res.status(200).json({
+                return res.status(400).json({
                     errors: 'User does not exits. Please retype'
                 });
             } else {
