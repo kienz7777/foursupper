@@ -26,9 +26,11 @@ if (process.env.NODE_ENV === 'development') {
 
 // Load all routes
 const allUserRouter = require('./routes/user.route');
+const allOrderRouter = require('./routes/order.route');
 
 // User routes
 app.use('/api/user',cors(),allUserRouter);
+app.use('/api/order',cors(),allOrderRouter);
 
 app.get('/', (req, res) => { res.send('Hello from Express!')});
 
