@@ -1,0 +1,58 @@
+.form-order {
+    width: 33%;
+    margin-top: 30px;
+}
+
+.group-input {
+    display: flex;
+    align-items: center;
+}
+
+.group-input label {
+    width: 30%;
+}
+
+.group-input input {
+    width: 70%;
+}
+
+.group-input .css-b62m3t-container {
+    width: 70%;
+    font-size: 13px;
+}
+
+.group-input select {
+    width: 70%;
+    font-size: 13px;
+}
+
+.group-input textarea {
+    width: 70%;
+    font-size: 13px;
+}
+
+.btn-order {
+    width: 100%;
+    color: #FFFFFF;
+    font-weight: 600;
+    background: rgb(225, 98, 89);
+    border: 1px solid rgb(190, 86, 67);
+}
+
+.btn-order:hover {
+    color: #FFFFFF;
+    background: rgb(196, 77, 68);
+    border: 1px solid rgb(190, 86, 67);
+}
+
+.btn-order:focus {
+    background: rgb(196, 77, 68);
+    border: 1px solid rgb(190, 86, 67);
+    box-shadow: none !important;
+}
+
+@media screen and (max-width: 992px) {
+    .form-order {
+        width: 100%;
+    }
+}

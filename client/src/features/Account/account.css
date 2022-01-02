@@ -9,7 +9,7 @@ input#username {
 }
 
 input {
-    font-size: 14px !important;
+    font-size: 13px !important;
 }
 
 .icon-login {
@@ -72,6 +72,12 @@ img {
 .btn-login:hover {
     background: rgb(196, 77, 68);
     border: 1px solid rgb(190, 86, 67);
+}
+
+.btn-login:focus {
+    background: rgb(196, 77, 68);
+    border: 1px solid rgb(190, 86, 67);
+    box-shadow: none !important;
 }
 
 .text-forgot {

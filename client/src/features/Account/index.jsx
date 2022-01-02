@@ -1,11 +1,14 @@
 import React, {useState} from 'react';
 import './account.css';
 import { Form, FormGroup, Label, Input, Button } from 'reactstrap';
-import { ToastContainer } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
 import userApi from '../../api/userApi';
+import { setUser } from '../../helpers/auth';
 
 function Account() {
 
+    const navigate = useNavigate();
     const [formData, setFormData] = useState({ username: '', password: '' });
     const { username, password } = formData;
 
@@ -16,12 +19,17 @@ function Account() {
 
     const handleSubmit = event => {
         event.preventDefault();
-        console.log(process.env.REACT_APP_API_URL);
 
         if(username && password) {
-            userApi.post({username, password})
-                .then(res => console.log(res))
-                .catch(err => console.log(err));
+            userApi.post({ username, password })
+                .then(res => {
+                    setUser(res.data);
+                    toast.success('Login successfully!');
+                    navigate('/order-tracking');
+                })
+                .catch(err => {
+                    toast.error(err.response.data.errors);
+                });
         }
     };
 
