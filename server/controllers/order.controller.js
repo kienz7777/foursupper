@@ -8,7 +8,7 @@ module.exports.getAllOrder = (req, res) => {
 
 module.exports.createOrder = (req, res) => {
     const order = new Order(req.body);
-    order.save((err, doc) => {
+    order.save((err, order) => {
         if (err) return res.json({success: false, errors: err});
         res.status(200).json({
             success: true,
@@ -21,7 +21,7 @@ module.exports.editOrder = (req, res) => {
     Order.findByIdAndUpdate(
         { _id : req.query.id },
         { $set : req.body },
-        (err,data) => {
+        (err, order) => {
             if (err) return res.json({success: false, errors: err});
             res.status(200).json({
                 success: true,
@@ -35,7 +35,7 @@ module.exports.deleteOrder = (req, res) => {
     Order.findByIdAndUpdate(
         { _id : req.query.id },
         { active : false },
-        (err,data) =>{
+        (err, order) =>{
             if (err) return res.json({success: false, errors: err});
             res.status(200).send({
                 success: true,
