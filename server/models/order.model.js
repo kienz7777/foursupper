@@ -4,13 +4,11 @@ const orderSchema = new mongoose.Schema(
     {
         userId: {
             type: String,
-            required: true,
-            unique: true
+            required: true
         },
         username: {
             type: String,
-            required: true,
-            unique: true
+            required: true
         },
         mony: {
             type: Number,
