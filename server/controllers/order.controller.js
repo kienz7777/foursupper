@@ -1,14 +1,14 @@
 const Order = require("../models/order.model");
 
 module.exports.getAllOrder = (req, res) => {
-    Order.find({}, (err, order) => {
-        return res.json(order);
+    Order.find({}, (err, data) => {
+        return res.json(data);
     });
 };
 
 module.exports.createOrder = (req, res) => {
     const order = new Order(req.body);
-    order.save((err, order) => {
+    order.save((err, data) => {
         if (err) return res.json({success: false, errors: err});
         res.status(200).json({
             success: true,
@@ -21,7 +21,7 @@ module.exports.editOrder = (req, res) => {
     Order.findByIdAndUpdate(
         { _id : req.query.id },
         { $set : req.body },
-        (err, order) => {
+        (err, data) => {
             if (err) return res.json({success: false, errors: err});
             res.status(200).json({
                 success: true,
@@ -35,7 +35,7 @@ module.exports.deleteOrder = (req, res) => {
     Order.findByIdAndUpdate(
         { _id : req.query.id },
         { active : false },
-        (err, order) =>{
+        (err, data) =>{
             if (err) return res.json({success: false, errors: err});
             res.status(200).send({
                 success: true,
@@ -48,7 +48,7 @@ module.exports.deleteOrder = (req, res) => {
 module.exports.deleteAllOrder = (req, res) => {
     Order.updateMany({},
         { $set: { active: false } },
-        (err, order) => {
+        (err, data) => {
         if (err) return res.json({success: false, errors: err});
         return res.json({
             success: true,
