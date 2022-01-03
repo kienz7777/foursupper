@@ -17,6 +17,10 @@ const userSchema = new mongoose.Schema(
         },
         avatar: {
             type: String
+        },
+        payment: {
+            type: Number,
+            require: true
         }
     }
 );

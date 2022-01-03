@@ -36,3 +36,15 @@ module.exports.getAll = (req, res) => {
         return res.json(user);
     });
 };
+
+module.exports.resetPayment = (req, res) => {
+    User.updateMany({},
+        { $set: { payment: 0 } },
+        (err, data) => {
+        if (err) return res.json({success: false, errors: err});
+        return res.json({
+            success: true,
+            messages: 'Reset all payment successfully!'
+        });
+    });
+};
