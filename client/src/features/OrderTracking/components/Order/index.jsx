@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import './order.css';
 import { getUser } from '../../../../helpers/auth';
-import userApi from '../../../../api/userApi';
 import { Form, FormGroup, Label, Input, Button } from 'reactstrap';
 import Select from 'react-select';
 import makeAnimated from 'react-select/animated';
@@ -9,13 +8,11 @@ import moment from 'moment';
 import orderApi from '../../../../api/orderApi';
 import { ToastContainer, toast } from 'react-toastify';
 
-function Order() {
+function Order(props) {
 
     const user = getUser();
     const animatedComponents = makeAnimated();
-    const [allUser, setAllUser] = useState([]);
-    const [represents, setRepresent] = useState([]);
-    const [order, setOrder] = useState({
+    const initOrder = {
         userId: user._id,
         username: user.username,
         money: 0,
@@ -24,18 +21,11 @@ function Order() {
         createDate: moment(new Date()).format('MM-DD-yyyy'),
         represents: [],
         active: true
-    });
+    };
+    const [represents, setRepresent] = useState([]);
+    const [order, setOrder] = useState(initOrder);
 
-    useEffect(() => {
-        const fetchAllUser= async () => {
-            const response = await userApi.getAll();
-            setAllUser(response.data);
-        };
-
-        fetchAllUser();
-    },[]);
-
-    const options = allUser.map(item => ({
+    const options = props.allUser.map(item => ({
         value: item._id,
         label: item.username
     }));
@@ -60,11 +50,15 @@ function Order() {
 
     const handleSubmit = event => {
         event.preventDefault();
-        console.log(order);
+
         if (order.money > 0 && order.quality > 0) {
             if (order.quality === order.represents.length) {
                 orderApi.create(order)
-                .then(res => {
+                .then(async res => {
+                    setOrder(initOrder);
+                    setRepresent([]);
+                    const response = await orderApi.getAll();
+                    props.setAllOrder(response.data);
                     toast.success('Create successfully!');
                 })
                 .catch(err => toast.error(err.response.data.errors));
@@ -76,7 +70,7 @@ function Order() {
         }
     };
 
-    if (!user || !allUser) {
+    if (!user || props.allUser.length === 0) {
         return null;
     }
 
@@ -88,11 +82,21 @@ function Order() {
                     <div className='form-order'>
                         <Form onSubmit={handleSubmit}>
                             <FormGroup className='group-input'>
+                                <Label className='title' for="username">Name</Label>
+                                <Input
+                                    name='username'
+                                    type='text'
+                                    value={order.username}
+                                    disabled
+                                />
+                            </FormGroup>
+                            <FormGroup className='group-input'>
                                 <Label className='title' for="money">Money</Label>
                                 <Input
                                     name='money'
                                     placeholder='Enter your money'
-                                    type='number'       
+                                    type='number'
+                                    value={order.money}     
                                     onChange={handleChange}
                                 />
                             </FormGroup>
@@ -102,6 +106,7 @@ function Order() {
                                     name='quality'
                                     placeholder='Enter your quality'
                                     type='select'
+                                    value={order.quality}
                                     onChange={handleChange}
                                 >
                                     <option value={0}>0</option>
@@ -127,7 +132,8 @@ function Order() {
                                 <Input
                                     name='description'
                                     placeholder='Enter your description'
-                                    type='textarea'       
+                                    type='textarea'
+                                    value={order.description}    
                                     onChange={handleChange}
                                 />
                             </FormGroup>

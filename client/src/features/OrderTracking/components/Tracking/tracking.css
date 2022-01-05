@@ -1,0 +1,10 @@
+.group-avatar {
+    display: flex;
+}
+
+.group-avatar .avatar {
+    width: 24px;
+    height: 24px;
+    margin-right: 5px;
+    border-radius: 50%;
+}
