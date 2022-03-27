@@ -10,9 +10,9 @@ function App() {
   return (
     <BrowserRouter>
         <Routes>
-          <Route exact path='/' element={<Home />}/>
+          <Route exact path='/home' element={<Home />}/>
           <Route exact path='/login' element={<Account />}/> 
-          <Route exact path='/order-tracking' element={<OrderTracking />}/> 
+          <Route exact path='/' element={<OrderTracking />}/> 
         </Routes>
     </BrowserRouter>
   );

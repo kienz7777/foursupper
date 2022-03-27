@@ -1,5 +1,6 @@
 .group-avatar {
     display: flex;
+    justify-content: center;
 }
 
 .group-avatar .avatar {
@@ -7,4 +8,65 @@
     height: 24px;
     margin-right: 5px;
     border-radius: 50%;
+}
+
+.table-tracking td, .table-tracking th {
+    text-align: center;
+}
+
+.btn-remove {
+    padding: 0 !important;
+}
+
+.btn-remove button {
+    margin: 7px;
+    font-size: 13px;
+}
+
+@media screen and (max-width: 768px) {
+    .table-tracking {
+        text-align: center;
+        font-size: 11px;
+        color: white;
+        padding: 0 0 10px;
+    }
+    .table-tracking table{
+        display: block;
+        width: 100%;
+    }
+    .table-tracking thead {
+        display: block;
+        float: left;
+    }
+    .table-tracking thead th{
+        display: block;
+        text-align: left;
+        border-width: 1px;
+        border-bottom-color: #0000001f !important;
+    }
+    .table-tracking tbody{
+        display: block;
+        width: auto;
+        position: relative;
+        overflow-x: auto;
+    }
+    .table-tracking tbody tr{
+        display: table-cell;
+    }
+    .table-tracking tbody td, .table-tracking tbody th{
+        display: block;
+        text-align: center;
+        border-width: 1px;
+    }
+
+    .table-tracking td, .table-tracking th {
+        padding: 20px 0.625em 0.625em 0.625em;
+        height: 55px;
+        vertical-align: middle;
+        box-sizing: border-box;
+        overflow-x: hidden;
+        overflow-y: auto;
+        width: 100%;
+        font-size: 13px;
+    }
 }

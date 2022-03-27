@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './result.css';
 
 function Result (props) {
 
@@ -11,7 +12,7 @@ function Result (props) {
         });
 
         allUser.forEach(item => {
-            const order = allOrder.filter(x => x.userId === item._id);
+            const order = allOrder.filter(x => x.userId === item._id && x.active === true);
             const indexUser = result.findIndex(x => x.userId === item._id);
     
             indexUser !== -1 && order.forEach(element => {
@@ -33,7 +34,7 @@ function Result (props) {
         return result;
     };
 
-    const result = calculatePayment();
+    const calcualte = calculatePayment();
 
     if (!props.allOrder.length === 0 || props.allUser.length === 0) {
         return null;
@@ -43,26 +44,28 @@ function Result (props) {
         <div className='container'>
             <div className='row'>
                 <div className='col'>
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                                {
-                                    result.map((item, key) => (
-                                        <th scope="col">{item.name}</th>
-                                    ))
-                                }
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                {
-                                    result.map((item, key) => (
-                                        <td scope="col">{item.payment}</td>
-                                    ))
-                                }
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div className='table-tracking'>
+                        <table className="table table-bordered">
+                            <thead>
+                                <tr>
+                                    {
+                                        calcualte.map((item, key) => (
+                                            <th style={{'textAlign': 'left'}} key={key} scope="col">{item.name}</th>
+                                        ))
+                                    }
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    {
+                                        calcualte.map((item, key) => (
+                                            <td style={{'textAlign': 'left'}} key={key} scope="col">{item.payment}</td>
+                                        ))
+                                    }
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>

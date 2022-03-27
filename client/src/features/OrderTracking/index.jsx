@@ -28,7 +28,7 @@ function OrderTracking() {
     return (
         <div>
             <Order allUser={allUser} setAllOrder={setAllOrder}/>
-            <Tracking allUser={allUser} allOrder={allOrder}/>
+            <Tracking allUser={allUser} allOrder={allOrder} setAllOrder={setAllOrder}/>
             <Result allUser={allUser} allOrder={allOrder}/>
         </div>
     )

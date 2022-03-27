@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import './order.css';
-import { getUser } from '../../../../helpers/auth';
 import { Form, FormGroup, Label, Input, Button } from 'reactstrap';
 import Select from 'react-select';
 import makeAnimated from 'react-select/animated';
@@ -10,11 +9,9 @@ import { ToastContainer, toast } from 'react-toastify';
 
 function Order(props) {
 
-    const user = getUser();
-    const animatedComponents = makeAnimated();
     const initOrder = {
-        userId: user._id,
-        username: user.username,
+        userId: '',
+        username: '',
         money: 0,
         quality: 0,
         description: '',
@@ -22,8 +19,10 @@ function Order(props) {
         represents: [],
         active: true
     };
+    const animatedComponents = makeAnimated();
     const [represents, setRepresent] = useState([]);
     const [order, setOrder] = useState(initOrder);
+    const [isDefaultUser, setIsDefaultUser] = useState(true);
 
     const options = props.allUser.map(item => ({
         value: item._id,
@@ -48,14 +47,27 @@ function Order(props) {
         setOrder({...order, [name]: value});
     };
 
+    const handleUsername = event => {
+        const value = event.target.value;
+        const username = props.allUser.find(item => item._id === value).username;
+
+        setIsDefaultUser(false);
+        setOrder({...order, username: username, userId: value});
+    };
+
     const handleSubmit = event => {
         event.preventDefault();
+
+        if (order.username === '') {
+            toast.error('Please input user name');
+            return;
+        }
 
         if (order.money > 0 && order.quality > 0) {
             if (order.quality === order.represents.length) {
                 orderApi.create(order)
                 .then(async res => {
-                    setOrder(initOrder);
+                    setOrder({...initOrder, userId: order.userId, username: order.username});
                     setRepresent([]);
                     const response = await orderApi.getAll();
                     props.setAllOrder(response.data);
@@ -70,7 +82,9 @@ function Order(props) {
         }
     };
 
-    if (!user || props.allUser.length === 0) {
+    const renderOption = (value, name, key) => <option key={key} value={value}>{name}</option>;
+
+    if (props.allUser.length === 0) {
         return null;
     }
 
@@ -84,11 +98,18 @@ function Order(props) {
                             <FormGroup className='group-input'>
                                 <Label className='title' for="username">Name</Label>
                                 <Input
-                                    name='username'
-                                    type='text'
-                                    value={order.username}
-                                    disabled
-                                />
+                                    type='select'
+                                    name='userId'
+                                    value={order.userId}
+                                    onChange={handleUsername}
+                                >
+                                    { isDefaultUser && <option value={''}>None</option> }
+                                    {
+                                        props.allUser.map((item, key) => (
+                                            renderOption(item._id, item.username, key)
+                                        ))
+                                    }
+                                </Input>
                             </FormGroup>
                             <FormGroup className='group-input'>
                                 <Label className='title' for="money">Money</Label>
